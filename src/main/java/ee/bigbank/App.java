@@ -1,10 +1,9 @@
 package ee.bigbank;
 
-import org.jooby.Jooby;
+import org.jooby.*;
 import org.jooby.MediaType;
 import org.jooby.json.Jackson;
-import org.jooby.raml.Raml;
-import org.jooby.swagger.SwaggerUI;
+import org.jooby.apitool.ApiTool;
 
 /**
  * Cat Service
@@ -15,24 +14,18 @@ public class App extends Jooby {
         use(new Jackson());
 
         /**
-         * Produces Cat object
+         * @param name Cat name
+         *
+         * @return Returns a cat {@link Cat}
          */
-        use("/api/cat/")
-                /**
-                 * @param name Cat name
-                 *
-                 * @return Returns a cat {@link Cat}
-                 */
-                .get("/:name", req -> {
-                    Cat cat = new Cat();
-                    cat.setName(req.param("name").value());
+        get("/api/cat/:name", req -> {
+            Cat cat = new Cat();
+            cat.setName(req.param("name").value());
 
-                    return cat;
-                })
-                .produces(MediaType.json);
+            return cat;
+        }).produces(MediaType.json);
 
-        new Raml().install(this);
-        new SwaggerUI().install(this);
+        use(new ApiTool().swagger(new ApiTool.Options("/swagger")));
     }
 
     public static void main(final String[] args) throws Throwable {

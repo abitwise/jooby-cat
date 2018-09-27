@@ -9,9 +9,9 @@ public class AppTest extends BaseTest {
 
   @Test
   public void index() throws Exception {
-    server.get("/")
+    server.get("/api/cat/Pudding")
         .expect(200)
-        .header("Content-Type", "text/html;charset=UTF-8");
+        .header("Content-Type", "application/json;charset=utf-8");
   }
 
 }

@@ -1,7 +1,7 @@
 package ee.bigbank;
 
-import org.jooby.test.AppRule;
 import org.jooby.test.Client;
+import org.jooby.test.JoobyRule;
 import org.junit.ClassRule;
 import org.junit.Rule;
 
@@ -15,7 +15,7 @@ public class BaseTest {
    * remove the static modifier and replace the {@link ClassRule} annotation with {@link Rule}.
    */
   @ClassRule
-  public static AppRule app = new AppRule(new App());
+  public static JoobyRule app = new JoobyRule(new App());
 
   /**
    * One client per test. It creates a new HTTP client per each of the test method you have.
